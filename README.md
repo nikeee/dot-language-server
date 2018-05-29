@@ -1,5 +1,5 @@
 # dot-language-server
-> [![Build Status](https://travis-ci.com/nikeee/dot-language-server.svg?branch=master)](https://travis-ci.com/nikeee/dot-language-server) ![Dependency Status](https://david-dm.org/nikeee/dot-language-server.svg)
+> [![Build Status](https://travis-ci.com/nikeee/dot-language-server.svg?branch=master)](https://travis-ci.com/nikeee/dot-language-server) ![Dependency Status](https://david-dm.org/nikeee/dot-language-server.svg) [![npm version](https://badge.fury.io/js/dot-language-server.svg)](https://www.npmjs.com/package/dot-language-server)
 
 A language Server for the DOT language/Graphviz.
 
