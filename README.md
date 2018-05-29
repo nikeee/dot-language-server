@@ -14,6 +14,8 @@ A language Server for the DOT language/Graphviz.
 npm i -g dot-language-server
 ```
 
+If you want to request or implement new features, head over to [dot-language-support](https://github.com/nikeee/dot-language-support).
+
 ## Usage
 
 ### Visual Studio Code
