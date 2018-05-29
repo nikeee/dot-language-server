@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "noUnusedLocals": false, // TODO: Fix
+    "noImplicitReturns": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "outDir": "lib",
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}

@@ -1,0 +1,14 @@
+*.ts
+!*.d.ts
+*.js.map
+*.log
+*.db*
+tsconfig.json
+.vscode/
+src/
+tests/
+.editorconfig
+.gitignore
+.travis.yml
+LICENSE
+*.md

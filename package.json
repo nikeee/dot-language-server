@@ -1,0 +1,42 @@
+{
+  "name": "dot-language-server",
+  "version": "1.0.0",
+  "description": "Language server for the DOT language",
+  "author": "Niklas Mollenhauer",
+  "license": "MIT",
+  "scripts": {
+    "test": "tsc --noEmit",
+    "clean": "rm -rv -- lib/* || true",
+    "compile": "tsc",
+    "prepare": "npm run clean && npm run compile"
+  },
+  "bin": {
+    "dot-language-server": "bin/server.js"
+  },
+  "keywords": [
+    "graphviz",
+    "dot",
+    "language",
+    "server",
+    "protocol",
+    "gv",
+    "lsp"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikeee/dot-language-support.git"
+  },
+  "dependencies": {
+    "dot-language-support": "^1.0.0",
+    "vscode-languageserver": "^4.1.3",
+    "yargs": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.1.3",
+    "@types/yargs": "^11.0.0",
+    "typescript": "^2.8.3"
+  },
+  "engines": {
+    "node": ">=7.9"
+  }
+}
