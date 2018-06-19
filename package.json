@@ -27,7 +27,7 @@
     "url": "https://github.com/nikeee/dot-language-support.git"
   },
   "dependencies": {
-    "dot-language-support": "^1.1.11",
+    "dot-language-support": "^1.2.1",
     "vscode-languageserver": "^4.2.1",
     "yargs": "^11.0.0"
   },
