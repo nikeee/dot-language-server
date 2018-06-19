@@ -41,5 +41,6 @@ TODO: There's an Extension for that.
 	}
 }
 ```
+**Note for Windows Users**: You have to append `.cmd` to the first entry in the `command` array (or, if possible, enable shell execution).
 
 ...and you're done!
