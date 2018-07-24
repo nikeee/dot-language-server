@@ -16,6 +16,10 @@ npm i -g dot-language-server
 
 If you want to request or implement new features, head over to [dot-language-support](https://github.com/nikeee/dot-language-support).
 
+## Features
+#### Refactorings
+![Refactorings Demo in Sublime Text](https://raw.githubusercontent.com/nikeee/dot-language-server/master/doc/refactoring.gif)
+
 ## Usage
 
 ### Visual Studio Code
