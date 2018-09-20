@@ -44,7 +44,7 @@ export function runServer(connection: lsp.IConnection) {
 				executeCommandProvider: {
 					 commands: languageService.getAvailableCommands(),
 				},
-				// colorProvider: true,
+				colorProvider: true,
 				// documentFormattingProvider: true,
 			}
 		}
@@ -101,24 +101,25 @@ export function runServer(connection: lsp.IConnection) {
 			: invalidRequest();
 	});
 
-	/*
 	connection.onDocumentColor(req => {
-		return [
-			{
-				range: { start: { line: 1, character: 0 }, end: { line: 1, character: 7 }, },
-				color: { red: 1.0, alpha: 1.0, green: 0.0, blue: 0.0 },
-			}
-		];
+		const uri = req.textDocument.uri;
+		const doc = documents.get(uri);
+		const ast = ensureAst(uri, doc);
+		return doc && ast
+			? languageService.getDocumentColors(doc, ast)
+			: invalidRequest();
 	});
 
+
 	connection.onColorPresentation(req => {
-		return [
-			{
-				label: req.color.toString(),
-			}
-		];
+		const uri = req.textDocument.uri;
+		const doc = documents.get(uri);
+		const ast = ensureAst(uri, doc);
+		return doc && ast
+			? languageService.getColorRepresentations(doc, ast, req.color, req.range)
+			: invalidRequest();
 	});
-	*/
+
 
 	/**
 	 * Event that gathers possible code actions
