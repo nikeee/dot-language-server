@@ -4,6 +4,8 @@ node_js:
   - 8
   - 9
   - 10
+  - latest
+  - lts
 
 cache: npm
 
@@ -18,4 +20,4 @@ deploy:
   on:
     branch: master
     tags: true
-    node: 10
+    node: latest
