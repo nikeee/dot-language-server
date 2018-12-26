@@ -32,8 +32,8 @@
     "yargs": "^12.0.5"
   },
   "devDependencies": {
-    "@types/node": "^10.12.15",
-    "@types/yargs": "^12.0.1",
+    "@types/node": "^10.12.18",
+    "@types/yargs": "^12.0.4",
     "rimraf": "^2.6.2",
     "typescript": "^3.2.2"
   },
