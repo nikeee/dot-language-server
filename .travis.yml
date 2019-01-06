@@ -1,11 +1,8 @@
 language: node_js
 sudo: false
 node_js:
-  - 8
-  - 9
   - 10
-  - latest
-  - lts
+  - node
 
 cache: npm
 
@@ -20,4 +17,4 @@ deploy:
   on:
     branch: master
     tags: true
-    node: latest
+    node: node
