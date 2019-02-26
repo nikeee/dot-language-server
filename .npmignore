@@ -1,14 +1,29 @@
+# No log files/DBs
+*.log
+*.db*
+
 *.ts
 !*.d.ts
 *.js.map
-*.log
-*.db*
+
+# No ts files are shipped, so we don't need any config
 tsconfig.json
+
+# Make sure js files always get included
+!*.js
+
+# No CI/Editor-Specific files
+.editorconfig
 .vscode/
+.travis.yml
+
+# No raw ts source + tests
 src/
 tests/
-.editorconfig
-.gitignore
-.travis.yml
+
+# License is stated/linked to in package.json
 LICENSE
 *.md
+
+
+lib/tester.*
