@@ -1,6 +1,6 @@
 {
   "name": "dot-language-server",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Language server for the DOT language",
   "author": "Niklas Mollenhauer",
   "license": "MIT",
