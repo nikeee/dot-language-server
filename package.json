@@ -29,13 +29,13 @@
   "dependencies": {
     "dot-language-support": "^1.4.6",
     "vscode-languageserver": "^5.3.0-next.10",
-    "yargs": "^15.3.1"
+    "yargs": "^15.4.1"
   },
   "devDependencies": {
-    "@types/node": "^13.13.5",
-    "@types/yargs": "^15.0.4",
+    "@types/node": "^14.0.26",
+    "@types/yargs": "^15.0.5",
     "rimraf": "^3.0.2",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.7"
   },
   "engines": {
     "node": ">=7.9"
