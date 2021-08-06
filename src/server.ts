@@ -233,23 +233,8 @@ export function runServer(connection: lsp.IConnection) {
 		const doc = documents.get(uri);
 		const ast = ensureAst(uri, doc);
 		return doc && ast
-			? languageService.getCompletions(doc, ast, req.position)
+			? languageService.getCompletions(doc, ast, req.position) as any
 			: invalidRequest();
-	});
-
-	/**
-	 * Provide some details about the completion.
-	 * TODO: Omit or implement.
-	 */
-	connection.onCompletionResolve((item: lsp.CompletionItem): lsp.CompletionItem => {
-		if (item.data === 1) {
-			item.detail = "TypeScript details";
-			item.documentation = "TypeScript documentation";
-		} else if (item.data === 2) {
-			item.detail = "JavaScript details";
-			item.documentation = "JavaScript documentation";
-		}
-		return item;
 	});
 
 	documents.onDidOpen(params => updateAst(params.document.uri, params.document));
