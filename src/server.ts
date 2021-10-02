@@ -1,13 +1,13 @@
-"use strict";
+import type { DotLanguageServerSettings, Settings } from "./types";
+import { TextDocument } from "vscode-languageserver-textdocument";
 import * as lsp from "vscode-languageserver";
 import * as rpc from "vscode-jsonrpc";
 import { createService, SourceFile } from "dot-language-support";
-import { DotLanguageServerSettings, Settings } from "./types";
-import { Command } from "vscode-languageserver";
+import { TextDocumentSyncKind } from "vscode-languageserver";
 
 const defaultSettings: DotLanguageServerSettings = { maxNumberOfProblems: 100 };
 
-export function runServer(connection: lsp.IConnection) {
+export function runServer(connection: lsp.Connection) {
 	if (!connection)
 		throw "connection is missing";
 
@@ -15,7 +15,7 @@ export function runServer(connection: lsp.IConnection) {
 
 	// Create a simple text document manager.
 	// The text document manager supports full document sync only
-	let documents = new lsp.TextDocuments();
+	let documents = new lsp.TextDocuments(TextDocument);
 	const astOfFile = new Map<string, SourceFile>();
 
 	// Make the documents listen for changes on the connection
@@ -31,7 +31,7 @@ export function runServer(connection: lsp.IConnection) {
 
 		return {
 			capabilities: {
-				textDocumentSync: documents.syncKind, // Only sync the entire document
+				textDocumentSync: TextDocumentSyncKind.Full,
 				completionProvider: {
 					triggerCharacters: ["="],
 					resolveProvider: false, // TODO: Maybe support this
@@ -55,7 +55,7 @@ export function runServer(connection: lsp.IConnection) {
 			updateAst(uri);
 	}
 
-	function updateAst(uri: string, doc?: lsp.TextDocument): SourceFile | undefined {
+	function updateAst(uri: string, doc?: TextDocument): SourceFile | undefined {
 		if (doc === undefined)
 			doc = documents.get(uri);
 
@@ -67,7 +67,7 @@ export function runServer(connection: lsp.IConnection) {
 		return undefined;
 	}
 
-	function ensureAst(uri: string, doc?: lsp.TextDocument): SourceFile | undefined {
+	function ensureAst(uri: string, doc?: TextDocument): SourceFile | undefined {
 		let ast = astOfFile.get(uri);
 		if (ast === undefined)
 			ast = updateAst(uri, doc);
@@ -215,7 +215,7 @@ export function runServer(connection: lsp.IConnection) {
 			}
 		}
 	}
-	function validateDocument(doc: lsp.TextDocument, sf: SourceFile): void {
+	function validateDocument(doc: TextDocument, sf: SourceFile): void {
 		const diagnostics = languageService.validateDocument(doc, sf);
 		connection.sendDiagnostics({ uri: doc.uri, diagnostics });
 	}
@@ -239,9 +239,7 @@ export function runServer(connection: lsp.IConnection) {
 
 	documents.onDidOpen(params => updateAst(params.document.uri, params.document));
 
-	const cancelled = () => new rpc.ResponseError<void>(rpc.ErrorCodes.RequestCancelled, "Request cancelled");
 	const invalidRequest = () => new rpc.ResponseError<void>(rpc.ErrorCodes.InvalidRequest, "Invalid request");
 
 	connection.listen();
 }
-
