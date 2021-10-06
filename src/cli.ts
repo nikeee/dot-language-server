@@ -1,5 +1,5 @@
 import * as yargs from "yargs";
-import * as lsp from "vscode-languageserver";
+import * as lsp from "vscode-languageserver/node";
 import { runServer } from "./server";
 
 type ArgsBase = { stdio?: true; nodeIpc?: true; socket?: number; pipe?: string; }
@@ -46,7 +46,7 @@ if (setArgs.every(a => !a)) {
 }
 
 if (setArgs.filter(a => !!a).length !== 1) {
-	console.error("You can only set exaclty one connection type (stdio, node-ipc, socket, pipe). Refer to --help for more details.");
+	console.error("You can only set exactly one connection type (stdio, node-ipc, socket, pipe). Refer to --help for more details.");
 	process.exit(1);
 }
 
