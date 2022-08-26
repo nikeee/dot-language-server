@@ -1,32 +1,35 @@
-name: Node.js CI
+name: CD
 
-on: [push]
+on:
+  push:
+    branches:
+    - "!*"
+    tags:
+    - "v*"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
-
     steps:
     - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+    - name: Use Node.js 18
+      uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 18
 
     - uses: actions/cache@v3
       with:
         path: ~/.npm
-        key: ${{ runner.os }}-node-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-node-${{ matrix.node-version }}-
+          ${{ runner.os }}-node-
 
     - run: npm ci
     - run: npm run compile
     - run: npm test
       env:
         CI: true
+    - run: npm config set "//registry.npmjs.org/:_authToken" "${{ secrets.NPM_TOKEN }}"
+    - run: npm publish
