@@ -33,3 +33,4 @@ jobs:
         CI: true
     - run: npm config set "//registry.npmjs.org/:_authToken" "${{ secrets.NPM_TOKEN }}"
     - run: npm publish
+    - run: npm run bundle
