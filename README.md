@@ -45,4 +45,7 @@ TODO: There's an Extension for that.
 ```
 **Note for Windows Users**: You have to append `.cmd` to the first entry in the `command` array (or, if possible, enable shell execution).
 
+### Emacs
+For Emacs users, you need to use `lsp-mode` which supports the DOT Language Server out of the box.
+
 ...and you're done!
