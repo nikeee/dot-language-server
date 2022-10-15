@@ -1,6 +1,6 @@
 {
 	"recommendations": [
 		"EditorConfig.EditorConfig",
-		"eg2.tslint"
+		"dbaeumer.vscode-eslint"
 	]
 }
