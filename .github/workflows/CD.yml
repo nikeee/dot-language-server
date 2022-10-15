@@ -34,3 +34,8 @@ jobs:
     - run: npm config set "//registry.npmjs.org/:_authToken" "${{ secrets.NPM_TOKEN }}"
     - run: npm publish
     - run: npm run bundle
+    - name: Archive standalone executables
+      uses: actions/upload-artifact@v3
+      with:
+        name: binaries
+        path: dist/**
