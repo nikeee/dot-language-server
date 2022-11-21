@@ -3,7 +3,7 @@
 A language Server for the DOT language/Graphviz.
 
 ## Prerequisites
-- Node.js `>=16`
+- Node.js `>=18`
 - `npm`
 
 ## Installation
