@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: DOT Language Server
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Niklas
+    family-names: Mollenhauer
+repository-code: 'https://github.com/nikeee/dot-language-server'
+abstract: A language Server (LSP) for the DOT language/Graphviz.
+keywords:
+  - dot
+  - graphviz
+  - language-server-protocol
+license: MIT
