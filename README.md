@@ -20,6 +20,51 @@ If you want to request or implement new features, head over to [dot-language-sup
 
 ## Usage
 
+### Vim
+
+#### coc.nvim
+
+```json
+{
+  "languageserver": {
+    "dot": {
+      "command": "dot-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["dot"]
+    }
+	}
+}
+```
+
+### vim-lsp
+
+```vim
+if executable('dot-language-server')
+  augroup lsp
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'dot',
+          \ 'cmd': {server_info->['dot-language-server', '--stdio']},
+          \ 'whitelist': ['dot'],
+          \ })
+  augroup END
+endif
+```
+
+### [Neovim](https://neovim.io)
+
+```lua
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = { "*.dot" },
+  callback = function()
+    vim.lsp.start({
+      name = "dot",
+      cmd = { "dot-language-server", "--stdio" }
+    })
+  end,
+})
+```
+
 ### Visual Studio Code
 
 TODO: There's an Extension for that.
