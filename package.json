@@ -30,11 +30,11 @@
   "dependencies": {
     "dot-language-support": "^2.2.1",
     "vscode-languageserver": "^8.1.0",
-    "vscode-languageserver-textdocument": "^1.0.8",
+    "vscode-languageserver-textdocument": "^1.0.11",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@types/node": "^20.10.4",
+    "@types/node": "^20.10.5",
     "@types/yargs": "^17.0.32",
     "pkg": "^5.8.1",
     "rimraf": "^5.0.5",
