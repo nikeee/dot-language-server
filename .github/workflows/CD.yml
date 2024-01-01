@@ -35,7 +35,7 @@ jobs:
 
     - run: npm run bundle
     - name: Archive standalone executables
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: binaries
         path: dist/**
