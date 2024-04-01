@@ -8,6 +8,10 @@
     "bundle": "pkg package.json",
     "clean": "rimraf lib",
     "compile": "tsc",
+    "ci": "biome ci ./src",
+    "format": "biome format --write ./src",
+    "lint": "biome lint ./src",
+    "lint:fix": "biome lint --apply ./src",
     "test": "tsc --noEmit",
     "prepare": "npm run clean && npm run compile"
   },
@@ -34,6 +38,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.6.3",
     "@types/node": "^20.10.5",
     "@types/yargs": "^17.0.32",
     "pkg": "^5.8.1",
