@@ -10,7 +10,7 @@
 		"enabled": true,
 		"clientKind": "git",
 		"defaultBranch": "master",
-		"root": ".."
+		"root": "."
 	},
 	"linter": {
 		"enabled": true,
