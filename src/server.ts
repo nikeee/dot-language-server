@@ -1,32 +1,32 @@
-import type { DotLanguageServerSettings, Settings } from "./types";
-import { TextDocument } from "vscode-languageserver-textdocument";
-import * as lsp from "vscode-languageserver";
+import { type SourceFile, createService } from "dot-language-support";
 import * as rpc from "vscode-jsonrpc";
-import { createService, SourceFile } from "dot-language-support";
+import * as lsp from "vscode-languageserver";
 import { TextDocumentSyncKind } from "vscode-languageserver";
+import { TextDocument } from "vscode-languageserver-textdocument";
+
+import type { DotLanguageServerSettings, Settings } from "./types";
 
 const defaultSettings: DotLanguageServerSettings = { maxNumberOfProblems: 100 };
 
 export function runServer(connection: lsp.Connection) {
-	if (!connection)
-		throw "connection is missing";
+	if (!connection) throw "connection is missing";
 
 	const languageService = createService();
 
 	// Create a simple text document manager.
 	// The text document manager supports full document sync only
-	let documents = new lsp.TextDocuments(TextDocument);
+	const documents = new lsp.TextDocuments(TextDocument);
 	const astOfFile = new Map<string, SourceFile>();
 
 	// Make the documents listen for changes on the connection
 	documents.listen(connection);
 
-	let shouldSendDiagnosticRelatedInformation: boolean = false;
+	let shouldSendDiagnosticRelatedInformation = false;
 
 	// After the server has started the client sends an initialize request. The server receives
 	// in the passed params the rootPath of the workspace plus the client capabilities.
 	connection.onInitialize((_params): lsp.InitializeResult => {
-		let a = _params.capabilities && _params.capabilities.textDocument && _params.capabilities.textDocument.publishDiagnostics && _params.capabilities.textDocument.publishDiagnostics.relatedInformation;
+		const a = _params.capabilities?.textDocument?.publishDiagnostics?.relatedInformation;
 		shouldSendDiagnosticRelatedInformation = !!a;
 
 		return {
@@ -42,35 +42,32 @@ export function runServer(connection: lsp.Connection) {
 				renameProvider: true,
 				codeActionProvider: true,
 				executeCommandProvider: {
-					 commands: languageService.getAvailableCommands(),
+					commands: languageService.getAvailableCommands(),
 				},
 				colorProvider: true,
 				// documentFormattingProvider: true,
-			}
-		}
+			},
+		};
 	});
 
 	function rebuildAll() {
-		for (const uri of astOfFile.keys())
-			updateAst(uri);
+		for (const uri of astOfFile.keys()) updateAst(uri);
 	}
 
 	function updateAst(uri: string, doc?: TextDocument): SourceFile | undefined {
-		if (doc === undefined)
-			doc = documents.get(uri);
-
-		if (doc) {
-			const ast = languageService.parseDocument(doc)
-			astOfFile.set(uri, ast);
-			return ast;
+		const d = doc === undefined ? documents.get(uri) : doc;
+		if (!d) {
+			return undefined;
 		}
-		return undefined;
+
+		const ast = languageService.parseDocument(d);
+		astOfFile.set(uri, ast);
+		return ast;
 	}
 
 	function ensureAst(uri: string, doc?: TextDocument): SourceFile | undefined {
 		let ast = astOfFile.get(uri);
-		if (ast === undefined)
-			ast = updateAst(uri, doc);
+		if (ast === undefined) ast = updateAst(uri, doc);
 		return ast;
 	}
 
@@ -78,9 +75,7 @@ export function runServer(connection: lsp.Connection) {
 		const uri = req.textDocument.uri;
 		const doc = documents.get(uri);
 		const ast = ensureAst(uri, doc);
-		return doc && ast
-			? languageService.hover(doc, ast, req.position)
-			: invalidRequest();
+		return doc && ast ? languageService.hover(doc, ast, req.position) : invalidRequest();
 	});
 
 	connection.onReferences(req => {
@@ -105,11 +100,8 @@ export function runServer(connection: lsp.Connection) {
 		const uri = req.textDocument.uri;
 		const doc = documents.get(uri);
 		const ast = ensureAst(uri, doc);
-		return doc && ast
-			? languageService.getDocumentColors(doc, ast)
-			: invalidRequest();
+		return doc && ast ? languageService.getDocumentColors(doc, ast) : invalidRequest();
 	});
-
 
 	connection.onColorPresentation(req => {
 		const uri = req.textDocument.uri;
@@ -119,7 +111,6 @@ export function runServer(connection: lsp.Connection) {
 			? languageService.getColorRepresentations(doc, ast, req.color, req.range)
 			: invalidRequest();
 	});
-
 
 	/**
 	 * Event that gathers possible code actions
@@ -134,12 +125,10 @@ export function runServer(connection: lsp.Connection) {
 			// Put the URI of the current document to the end
 			// We need the uri to get the AST later
 			if (r) {
-				r.forEach(command => {
-					if (command.arguments)
-						command.arguments.push(uri);
-					else
-						command.arguments = [uri];
-				});
+				for (const command of r) {
+					if (command.arguments) command.arguments.push(uri);
+					else command.arguments = [uri];
+				}
 			}
 
 			return r;
@@ -152,8 +141,7 @@ export function runServer(connection: lsp.Connection) {
 	 */
 	connection.onExecuteCommand(req => {
 		const args = req.arguments;
-		if (!args || args.length < 1)
-			return;
+		if (!args || args.length < 1) return;
 
 		// Remove the URI and retrieve AST
 		const uri = args.pop();
@@ -163,8 +151,7 @@ export function runServer(connection: lsp.Connection) {
 			req.arguments = args.length === 0 ? undefined : args;
 			const edit = languageService.executeCommand(doc, ast, req);
 
-			if (edit)
-				connection.workspace.applyEdit(edit);
+			if (edit) connection.workspace.applyEdit(edit);
 		}
 	});
 
@@ -198,8 +185,7 @@ export function runServer(connection: lsp.Connection) {
 	// The settings have changed. Is send on server activation as well.
 	connection.onDidChangeConfiguration(change => {
 		const newSettings = (change.settings as Settings).dotLanguageServer;
-		if (newSettings)
-			currentSettings = newSettings;
+		if (newSettings) currentSettings = newSettings;
 
 		rebuildAll();
 		validateAll();
@@ -210,8 +196,7 @@ export function runServer(connection: lsp.Connection) {
 			const doc = documents.get(uri);
 			if (doc) {
 				const ast = ensureAst(uri, doc);
-				if (ast)
-					validateDocument(doc, ast);
+				if (ast) validateDocument(doc, ast);
 			}
 		}
 	}
@@ -233,13 +218,15 @@ export function runServer(connection: lsp.Connection) {
 		const doc = documents.get(uri);
 		const ast = ensureAst(uri, doc);
 		return doc && ast
-			? languageService.getCompletions(doc, ast, req.position) as any
+			? // biome-ignore lint/suspicious/noExplicitAny: :shrug:
+				(languageService.getCompletions(doc, ast, req.position) as any)
 			: invalidRequest();
 	});
 
 	documents.onDidOpen(params => updateAst(params.document.uri, params.document));
 
-	const invalidRequest = () => new rpc.ResponseError<void>(rpc.ErrorCodes.InvalidRequest, "Invalid request");
+	const invalidRequest = () =>
+		new rpc.ResponseError<void>(rpc.ErrorCodes.InvalidRequest, "Invalid request");
 
 	connection.listen();
 }
