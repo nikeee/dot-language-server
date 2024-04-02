@@ -7,13 +7,13 @@
   "scripts": {
     "bundle": "pkg package.json",
     "clean": "rimraf lib",
-    "compile": "tsc",
+    "build": "tsc",
     "ci": "biome ci ./src",
     "format": "biome format --write ./src",
     "lint": "biome lint ./src",
     "lint:fix": "biome lint --apply ./src",
     "test": "tsc --noEmit",
-    "prepare": "npm run clean && npm run compile"
+    "prepare": "npm run clean && npm run build"
   },
   "bin": {
     "dot-language-server": "bin/server.js"
