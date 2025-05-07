@@ -32,18 +32,18 @@
     "url": "https://github.com/nikeee/dot-language-server.git"
   },
   "dependencies": {
-    "dot-language-support": "^2.2.5",
+    "dot-language-support": "^2.2.7",
     "vscode-languageserver": "^8.1.0",
     "vscode-languageserver-textdocument": "^1.0.12",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@types/node": "^22.13.11",
+    "@types/node": "^22.15.14",
     "@types/yargs": "^17.0.33",
     "pkg": "^5.8.1",
     "rimraf": "^6.0.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "pkg": {
     "targets": [
