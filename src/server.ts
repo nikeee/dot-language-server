@@ -1,4 +1,4 @@
-import { type SourceFile, createService } from "dot-language-support";
+import { createService, type SourceFile } from "dot-language-support";
 import * as rpc from "vscode-jsonrpc";
 import * as lsp from "vscode-languageserver";
 import { TextDocumentSyncKind } from "vscode-languageserver";
@@ -21,6 +21,7 @@ export function runServer(connection: lsp.Connection) {
 	// Make the documents listen for changes on the connection
 	documents.listen(connection);
 
+	// biome-ignore lint/correctness/noUnusedVariables: :shrug:
 	let shouldSendDiagnosticRelatedInformation = false;
 
 	// After the server has started the client sends an initialize request. The server receives
@@ -180,6 +181,7 @@ export function runServer(connection: lsp.Connection) {
 		return validateDocument(doc, ast);
 	});
 
+	// biome-ignore lint/correctness/noUnusedVariables: :shrug:
 	let currentSettings: DotLanguageServerSettings = { ...defaultSettings };
 
 	// The settings have changed. Is send on server activation as well.
