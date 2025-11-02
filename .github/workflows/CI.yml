@@ -15,7 +15,7 @@ jobs:
       with:
         show-progress: false
 
-    - uses: actions/setup-node@v5
+    - uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
         cache: npm
