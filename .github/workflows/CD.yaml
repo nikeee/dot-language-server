@@ -33,8 +33,6 @@ jobs:
       env:
         CI: true
     - run: npm publish --provenance --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - run: npm run bundle
     - name: Archive standalone executables
