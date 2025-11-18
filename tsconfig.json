@@ -11,6 +11,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+
     "outDir": "lib",
     "declaration": true,
     "sourceMap": true,
