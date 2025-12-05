@@ -4,45 +4,52 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     strategy:
       matrix:
         node-version: [22.x, 24.x, 25.x]
 
     steps:
-    - uses: actions/checkout@v6
-      with:
-        show-progress: false
+      - uses: actions/checkout@v6
+        with:
+          show-progress: false
 
-    - uses: actions/setup-node@v6
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: npm
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
 
-    - run: npm ci
-    - run: npm run ci
-    - run: npm run build
-    - run: npm test
-      env:
-        CI: true
+      - run: npm ci
+      - run: npm run ci
+      - run: npm run build
+      - run: npm test
+        env:
+          CI: true
 
-    - uses: actions/upload-artifact@v5
-      with:
-        name: binary-linux-x64
-        path: dist/linux-x64/dot-language-server
+  artifacts:
+    runs-on: ubuntu-slim
+    needs: build
 
-    - uses: actions/upload-artifact@v5
-      with:
-        name: binary-linux-arm64
-        path: dist/linux-arm64/dot-language-server
+    steps:
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-artifact@v5
+        with:
+          name: binary-linux-x64
+          path: dist/linux-x64/dot-language-server
 
-    - uses: actions/upload-artifact@v5
-      with:
-        name: binary-windows-x64
-        path: dist/windows-x64/dot-language-server.exe
+      - uses: actions/upload-artifact@v5
+        with:
+          name: binary-linux-arm64
+          path: dist/linux-arm64/dot-language-server
 
-    - uses: actions/upload-artifact@v5
-      with:
-        name: binary-darwin-arm64
-        path: dist/darwin-arm64/dot-language-server
+      - uses: actions/upload-artifact@v5
+        with:
+          name: binary-windows-x64
+          path: dist/windows-x64/dot-language-server.exe
+
+      - uses: actions/upload-artifact@v5
+        with:
+          name: binary-darwin-arm64
+          path: dist/darwin-arm64/dot-language-server

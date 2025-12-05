@@ -3,53 +3,53 @@ name: CD
 on:
   push:
     branches:
-    - "!*"
+      - "!*"
     tags:
-    - "v*"
+      - "v*"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
 
     permissions:
       contents: read
       id-token: write
 
     steps:
-    - uses: actions/checkout@v6
-      with:
-        show-progress: false
+      - uses: actions/checkout@v6
+        with:
+          show-progress: false
 
-    - uses: actions/setup-node@v6
-      with:
-        node-version: 24
-        cache: npm
-        registry-url: https://registry.npmjs.org
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
 
-    - run: npm ci
-    - run: npm run ci
-    - run: npm run build
-    - run: npm test
-      env:
-        CI: true
-    - run: npm publish --provenance --access public
+      - run: npm ci
+      - run: npm run ci
+      - run: npm run build
+      - run: npm test
+        env:
+          CI: true
+      - run: npm publish --provenance --access public
 
-    - uses: actions/upload-artifact@v5
-      with:
-        name: binary-linux-x64
-        path: dist/linux-x64/dot-language-server
+      - uses: actions/upload-artifact@v5
+        with:
+          name: binary-linux-x64
+          path: dist/linux-x64/dot-language-server
 
-    - uses: actions/upload-artifact@v5
-      with:
-        name: binary-linux-arm64
-        path: dist/linux-arm64/dot-language-server
+      - uses: actions/upload-artifact@v5
+        with:
+          name: binary-linux-arm64
+          path: dist/linux-arm64/dot-language-server
 
-    - uses: actions/upload-artifact@v5
-      with:
-        name: binary-windows-x64
-        path: dist/windows-x64/dot-language-server.exe
+      - uses: actions/upload-artifact@v5
+        with:
+          name: binary-windows-x64
+          path: dist/windows-x64/dot-language-server.exe
 
-    - uses: actions/upload-artifact@v5
-      with:
-        name: binary-darwin-arm64
-        path: dist/darwin-arm64/dot-language-server
+      - uses: actions/upload-artifact@v5
+        with:
+          name: binary-darwin-arm64
+          path: dist/darwin-arm64/dot-language-server
