@@ -16,6 +16,7 @@
     "lint": "biome lint ./src",
     "lint:fix": "biome lint --apply ./src",
     "test": "tsc --noEmit",
+    "smoketest": "tsc && node --test",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "bin": {
