@@ -26,4 +26,4 @@ jobs:
     - run: npm test
       env:
         CI: true
-    - run: npm run bundle
+    # - run: npm run bundle

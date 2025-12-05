@@ -34,9 +34,9 @@ jobs:
         CI: true
     - run: npm publish --provenance --access public
 
-    - run: npm run bundle
-    - name: Archive standalone executables
-      uses: actions/upload-artifact@v5
-      with:
-        name: binaries
-        path: dist/**
+    # - run: npm run bundle
+    # - name: Archive standalone executables
+    #   uses: actions/upload-artifact@v5
+    #   with:
+    #     name: binaries
+    #     path: dist/**
