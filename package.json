@@ -5,18 +5,18 @@
   "author": "Niklas Mollenhauer",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf lib out",
-    "build:linux-x64": "bun build --compile --minify src/cli.ts --target=bun-linux-x64-modern --outfile=out/linux-x64",
-    "build:linux-arm64": "bun build --compile --minify src/cli.ts --target=bun-linux-arm64-modern --outfile=out/linux-arm64",
-    "build:windows-x64": "bun build --compile --minify src/cli.ts --target=bun-windows-x64-modern --outfile=out/windows-x64.exe",
-    "build:darwin-arm64": "bun build --compile --minify src/cli.ts --target=bun-darwin-arm64-modern --outfile=out/darwin-arm64",
+    "clean": "rimraf lib dist",
+    "build:linux-x64": "bun build --compile --minify src/cli.ts --target=bun-linux-x64-modern --outfile=dist/linux-x64/dot-language-server",
+    "build:linux-arm64": "bun build --compile --minify src/cli.ts --target=bun-linux-arm64-modern --outfile=dist/linux-arm64/dot-language-server",
+    "build:windows-x64": "bun build --compile --minify src/cli.ts --target=bun-windows-x64-modern --outfile=dist/windows-x64/dot-language-server.exe",
+    "build:darwin-arm64": "bun build --compile --minify src/cli.ts --target=bun-darwin-arm64-modern --outfile=dist/darwin-arm64/dot-language-server",
     "build": "tsc && node --run build:linux-x64 && node --run build:linux-arm64 && node --run build:windows-x64 && node --run build:darwin-arm64",
     "ci": "biome ci ./src",
     "format": "biome format --write ./src",
     "lint": "biome lint ./src",
     "lint:fix": "biome lint --apply ./src",
     "test": "tsc --noEmit",
-    "prepare": "npm run clean && npm run build"
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "bin": {
     "dot-language-server": "bin/server.js"
