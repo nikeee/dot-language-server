@@ -32,8 +32,18 @@ jobs:
     needs: build
 
     steps:
+      - uses: actions/checkout@v6
+        with:
+          show-progress: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 25.x
+          cache: npm
+
       - run: npm ci
       - run: npm run build
+
       - uses: actions/upload-artifact@v5
         with:
           name: binary-linux-x64
