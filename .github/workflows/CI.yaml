@@ -29,5 +29,20 @@ jobs:
 
     - uses: actions/upload-artifact@v5
       with:
-        name: binaries
-        path: dist/**
+        name: binary-linux-x64
+        path: dist/linux-x64/dot-language-server
+
+    - uses: actions/upload-artifact@v5
+      with:
+        name: binary-linux-arm64
+        path: dist/linux-arm64/dot-language-server
+
+    - uses: actions/upload-artifact@v5
+      with:
+        name: binary-windows-x64
+        path: dist/windows-x64/dot-language-server.exe
+
+    - uses: actions/upload-artifact@v5
+      with:
+        name: binary-darwin-arm64
+        path: dist/darwin-arm64/dot-language-server
