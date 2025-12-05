@@ -26,3 +26,8 @@ jobs:
     - run: npm test
       env:
         CI: true
+
+    - uses: actions/upload-artifact@v5
+      with:
+        name: binaries
+        path: dist/**
