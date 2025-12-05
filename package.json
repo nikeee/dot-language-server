@@ -35,7 +35,7 @@
     "url": "https://github.com/nikeee/dot-language-server.git"
   },
   "dependencies": {
-    "dot-language-support": "^2.3.0",
+    "dot-language-support": "^4.0.2",
     "vscode-languageserver": "^8.1.0",
     "vscode-languageserver-textdocument": "^1.0.12"
   },
