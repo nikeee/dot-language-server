@@ -2,10 +2,10 @@
 
 // Caution: This file was vibe-coded. It is only used to ensure that upgrading the LSP librarys doesnt break anything
 
+import { strict as assert } from "node:assert";
 import { spawn } from "node:child_process";
 import { join } from "node:path";
-import { test, after, describe } from "node:test";
-import { strict as assert } from "node:assert";
+import { after, describe, test } from "node:test";
 
 interface LSPMessage {
 	jsonrpc: "2.0";
@@ -99,6 +99,7 @@ class LSPSmokeTest {
 
 	private handleMessage(message: LSPMessage): void {
 		if (message.id !== undefined && this.pendingRequests.has(message.id)) {
+			// biome-ignore lint/style/noNonNullAssertion: :shrug:
 			const pending = this.pendingRequests.get(message.id)!;
 			clearTimeout(pending.timeout);
 
