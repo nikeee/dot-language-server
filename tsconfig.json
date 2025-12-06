@@ -18,8 +18,8 @@
 
     "rootDir": "src",
     "outDir": "lib",
-    "declaration": true,
-    "sourceMap": true,
+    "declaration": false,
+    "sourceMap": false,
     "removeComments": true,
   },
   "include": [
