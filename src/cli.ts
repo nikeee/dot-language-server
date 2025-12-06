@@ -1,7 +1,8 @@
 import { parseArgs } from "node:util";
 
 import * as lsp from "vscode-languageserver/node";
-import { runServer } from "./server";
+import packageJson from "../package.json" with { type: "json" };
+import { runServer } from "./server.js";
 
 type ArgsBase = { stdio?: true; nodeIpc?: true; socket?: number; pipe?: string };
 type StdIOArgs = { stdio: true };
@@ -40,7 +41,7 @@ const { values } = parseArgs({
 });
 
 if (values.version) {
-	console.log(require("../package.json").version);
+	console.log(packageJson.version);
 	process.exit(0);
 }
 

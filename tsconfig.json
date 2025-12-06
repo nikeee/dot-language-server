@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
 
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -13,7 +14,9 @@
 
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
 
+    "rootDir": "src",
     "outDir": "lib",
     "declaration": true,
     "sourceMap": true,

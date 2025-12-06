@@ -4,7 +4,7 @@ import * as lsp from "vscode-languageserver";
 import { TextDocumentSyncKind } from "vscode-languageserver";
 import { TextDocument } from "vscode-languageserver-textdocument";
 
-import type { DotLanguageServerSettings, Settings } from "./types";
+import type { DotLanguageServerSettings, Settings } from "./types.js";
 
 const defaultSettings: DotLanguageServerSettings = { maxNumberOfProblems: 100 };
 
