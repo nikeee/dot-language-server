@@ -1,6 +1,6 @@
 import { parseArgs } from "node:util";
 
-import * as lsp from "vscode-languageserver/node";
+import * as lsp from "vscode-languageserver/node.js";
 import packageJson from "../package.json" with { type: "json" };
 import { runServer } from "./server.js";
 
