@@ -1,3 +1,8 @@
+/.github
+/doc
+biome.json
+
+CITATION.cff
 # No log files/DBs
 *.log
 *.db*
@@ -28,3 +33,5 @@ LICENSE
 
 lib/tester.*
 /dist
+
+*.test.js
