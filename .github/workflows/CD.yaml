@@ -34,22 +34,22 @@ jobs:
           CI: true
       - run: npm publish --provenance --access public
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: linux-x64
           path: dist/linux-x64/dot-language-server
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: linux-arm64
           path: dist/linux-arm64/dot-language-server
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: windows-x64
           path: dist/windows-x64/dot-language-server.exe
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: macos-arm64
           path: dist/darwin-arm64/dot-language-server
