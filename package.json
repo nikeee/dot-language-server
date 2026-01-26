@@ -1,6 +1,6 @@
 {
   "name": "dot-language-server",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "type": "module",
   "description": "Language server for the DOT language",
   "author": "Niklas Mollenhauer",
