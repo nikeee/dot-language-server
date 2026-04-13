@@ -21,7 +21,6 @@ export function runServer(connection: lsp.Connection) {
 	// Make the documents listen for changes on the connection
 	documents.listen(connection);
 
-	// biome-ignore lint/correctness/noUnusedVariables: :shrug:
 	let shouldSendDiagnosticRelatedInformation = false;
 
 	// After the server has started the client sends an initialize request. The server receives
@@ -181,7 +180,6 @@ export function runServer(connection: lsp.Connection) {
 		return validateDocument(doc, ast);
 	});
 
-	// biome-ignore lint/correctness/noUnusedVariables: :shrug:
 	let currentSettings: DotLanguageServerSettings = { ...defaultSettings };
 
 	// The settings have changed. Is send on server activation as well.
@@ -220,8 +218,7 @@ export function runServer(connection: lsp.Connection) {
 		const doc = documents.get(uri);
 		const ast = ensureAst(uri, doc);
 		return doc && ast
-			? // biome-ignore lint/suspicious/noExplicitAny: :shrug:
-				(languageService.getCompletions(doc, ast, req.position) as any)
+			? (languageService.getCompletions(doc, ast, req.position) as any)
 			: invalidRequest();
 	});
 

@@ -99,7 +99,6 @@ class LSPSmokeTest {
 
 	private handleMessage(message: LSPMessage): void {
 		if (message.id !== undefined && this.pendingRequests.has(message.id)) {
-			// biome-ignore lint/style/noNonNullAssertion: :shrug:
 			const pending = this.pendingRequests.get(message.id)!;
 			clearTimeout(pending.timeout);
 
