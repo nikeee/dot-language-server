@@ -1,10 +1,26 @@
 {
   "name": "dot-language-server",
   "version": "3.0.5",
-  "type": "module",
   "description": "Language server for the DOT language",
-  "author": "Niklas Mollenhauer",
+  "keywords": [
+    "dot",
+    "graphviz",
+    "gv",
+    "language",
+    "lsp",
+    "protocol",
+    "server"
+  ],
   "license": "MIT",
+  "author": "Niklas Mollenhauer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikeee/dot-language-server.git"
+  },
+  "bin": {
+    "dot-language-server": "bin/server.js"
+  },
+  "type": "module",
   "scripts": {
     "clean": "rimraf lib dist",
     "build:linux-x64": "bun build --compile --minify src/cli.ts --target=bun-linux-x64-modern --outfile=dist/linux-x64/dot-language-server",
@@ -19,22 +35,6 @@
     "test": "tsc --noEmit",
     "smoketest": "node --run build && node --test",
     "prepublishOnly": "node --run clean && node --run build"
-  },
-  "bin": {
-    "dot-language-server": "bin/server.js"
-  },
-  "keywords": [
-    "graphviz",
-    "dot",
-    "language",
-    "server",
-    "protocol",
-    "gv",
-    "lsp"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nikeee/dot-language-server.git"
   },
   "dependencies": {
     "dot-language-support": "^4.1.3",

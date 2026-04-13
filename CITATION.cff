@@ -5,7 +5,7 @@ type: software
 authors:
   - given-names: Niklas
     family-names: Mollenhauer
-repository-code: 'https://github.com/nikeee/dot-language-server'
+repository-code: "https://github.com/nikeee/dot-language-server"
 abstract: A language Server (LSP) for the DOT language/Graphviz.
 keywords:
   - dot
