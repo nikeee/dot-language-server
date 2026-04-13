@@ -139,19 +139,25 @@ export function runServer(connection: lsp.Connection) {
 	/**
 	 * Gets called when a code action is actually invoked.
 	 */
-	connection.onExecuteCommand(req => {
+	connection.onExecuteCommand(async req => {
 		const args = req.arguments;
-		if (!args || args.length < 1) return;
+		if (!args || args.length < 1) {
+			return;
+		}
 
 		// Remove the URI and retrieve AST
 		const uri = args.pop();
 		const doc = documents.get(uri);
 		const ast = ensureAst(uri, doc);
-		if (doc && ast) {
-			req.arguments = args.length === 0 ? undefined : args;
-			const edit = languageService.executeCommand(doc, ast, req);
+		if (!doc || !ast) {
+			return;
+		}
 
-			if (edit) connection.workspace.applyEdit(edit);
+		req.arguments = args.length === 0 ? undefined : args;
+		const edit = languageService.executeCommand(doc, ast, req);
+
+		if (edit) {
+			await connection.workspace.applyEdit(edit);
 		}
 	});
 
@@ -183,26 +189,30 @@ export function runServer(connection: lsp.Connection) {
 	let currentSettings: DotLanguageServerSettings = { ...defaultSettings };
 
 	// The settings have changed. Is send on server activation as well.
-	connection.onDidChangeConfiguration(change => {
+	connection.onDidChangeConfiguration(async change => {
 		const newSettings = (change.settings as Settings).dotLanguageServer;
 		if (newSettings) currentSettings = newSettings;
 
 		rebuildAll();
-		validateAll();
+		await validateAll();
 	});
 
-	function validateAll() {
+	async function validateAll() {
 		for (const uri of astOfFile.keys()) {
 			const doc = documents.get(uri);
-			if (doc) {
-				const ast = ensureAst(uri, doc);
-				if (ast) validateDocument(doc, ast);
+			if (!doc) {
+				continue;
+			}
+
+			const ast = ensureAst(uri, doc);
+			if (ast) {
+				await validateDocument(doc, ast);
 			}
 		}
 	}
-	function validateDocument(doc: TextDocument, sf: SourceFile): void {
+	async function validateDocument(doc: TextDocument, sf: SourceFile): Promise<void> {
 		const diagnostics = languageService.validateDocument(doc, sf);
-		connection.sendDiagnostics({ uri: doc.uri, diagnostics });
+		await connection.sendDiagnostics({ uri: doc.uri, diagnostics });
 	}
 
 	connection.onDidChangeWatchedFiles(_change => {
