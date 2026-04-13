@@ -211,14 +211,14 @@ class LSPSmokeTest {
 const serverPath = join(process.cwd(), "dist", "linux-x64", "dot-language-server");
 let lspTest: LSPSmokeTest;
 
-describe("LSP smoketest", () => {
-	test("server starts", async () => {
+void describe("LSP smoketest", () => {
+	void test("server starts", async () => {
 		lspTest = new LSPSmokeTest(serverPath);
 		// Wait a bit for the server to start
 		await new Promise(resolve => setTimeout(resolve, 500));
 	});
 
-	test("initialize request", async () => {
+	void test("initialize request", async () => {
 		const result = await lspTest.testInitialize();
 
 		assert.ok(result, "Initialize should return a result");
@@ -226,12 +226,12 @@ describe("LSP smoketest", () => {
 		assert.ok("capabilities" in result, "Result should have capabilities");
 	});
 
-	test("initialized notification", async () => {
+	void test("initialized notification", async () => {
 		await lspTest.testInitialized();
 		// Notification doesn't return a response, so we just verify it doesn't throw
 	});
 
-	test("shutdown", async () => {
+	void test("shutdown", async () => {
 		await lspTest.shutdown();
 	});
 
