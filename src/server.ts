@@ -4,9 +4,9 @@ import * as lsp from "vscode-languageserver";
 import { TextDocumentSyncKind } from "vscode-languageserver";
 import { TextDocument } from "vscode-languageserver-textdocument";
 
-import type { DotLanguageServerSettings, Settings } from "./types.js";
+// import type { DotLanguageServerSettings } from "./types.js";
 
-const defaultSettings: DotLanguageServerSettings = { maxNumberOfProblems: 100 };
+// const defaultSettings: DotLanguageServerSettings = { maxNumberOfProblems: 100 };
 
 export function runServer(connection: lsp.Connection) {
 	if (!connection) throw "connection is missing";
@@ -183,12 +183,14 @@ export function runServer(connection: lsp.Connection) {
 		return validateDocument(doc, ast);
 	});
 
-	let currentSettings: DotLanguageServerSettings = { ...defaultSettings };
+	// let currentSettings: DotLanguageServerSettings = { ...defaultSettings };
 
 	// The settings have changed. Is send on server activation as well.
-	connection.onDidChangeConfiguration(async change => {
-		const newSettings = (change.settings as Settings).dotLanguageServer;
-		if (newSettings) currentSettings = newSettings;
+	connection.onDidChangeConfiguration(async _change => {
+		// const newSettings = (change.settings as Settings).dotLanguageServer;
+		// if (newSettings) {
+		//   currentSettings = newSettings;
+		// }
 
 		rebuildAll();
 		await validateAll();
