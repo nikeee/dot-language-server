@@ -18,16 +18,11 @@
     "url": "https://github.com/nikeee/dot-language-server.git"
   },
   "bin": {
-    "dot-language-server": "bin/server.js"
+    "dot-language-server": "dist/cli.mjs"
   },
   "type": "module",
   "scripts": {
-    "clean": "rimraf lib dist",
-    "build:linux-x64": "bun build --compile --minify src/cli.ts --target=bun-linux-x64-modern --outfile=dist/linux-x64/dot-language-server",
-    "build:linux-arm64": "bun build --compile --minify src/cli.ts --target=bun-linux-arm64-modern --outfile=dist/linux-arm64/dot-language-server",
-    "build:windows-x64": "bun build --compile --minify src/cli.ts --target=bun-windows-x64-modern --outfile=dist/windows-x64/dot-language-server.exe",
-    "build:darwin-arm64": "bun build --compile --minify src/cli.ts --target=bun-darwin-arm64-modern --outfile=dist/darwin-arm64/dot-language-server",
-    "build": "tsc && node --run build:linux-x64 && node --run build:linux-arm64 && node --run build:windows-x64 && node --run build:darwin-arm64",
+    "build": "tsc && tsdown",
     "ci": "oxlint --type-check --type-aware -f github",
     "format": "oxfmt",
     "lint": "oxlint --type-aware",
@@ -42,8 +37,8 @@
     "vscode-languageserver-textdocument": "^1.0.12"
   },
   "devDependencies": {
+    "@tsdown/exe": "^0.21.8",
     "@types/node": "^25.6.0",
-    "bun": "^1.3.12",
     "oxfmt": "^0.45.0",
     "oxlint": "^1.60.0",
     "oxlint-tsgolint": "^0.20.0",
