@@ -11,5 +11,8 @@ export default defineConfig({
 			{ platform: "darwin", arch: "arm64", nodeVersion: "latest" },
 			// { platform: "win", arch: "x64", nodeVersion: "latest" },
 		],
+		seaConfig: {
+			useCodeCache: true,
+		}
 	},
 });
