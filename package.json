@@ -37,7 +37,7 @@
     "prepublishOnly": "node --run clean && node --run build"
   },
   "dependencies": {
-    "dot-language-support": "^4.1.3",
+    "dot-language-support": "^4.1.4",
     "vscode-languageserver": "^9.0.1",
     "vscode-languageserver-textdocument": "^1.0.12"
   },
