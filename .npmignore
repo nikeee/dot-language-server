@@ -1,6 +1,6 @@
 /.github
 /doc
-biome.json
+.oxfmtrc.json
 
 CITATION.cff
 # No log files/DBs
@@ -20,7 +20,6 @@ tsconfig.json
 # No CI/Editor-Specific files
 .editorconfig
 .vscode/
-.travis.yml
 
 # No raw ts source + tests
 src/
@@ -29,7 +28,6 @@ tests/
 # License is stated/linked to in package.json
 LICENSE
 *.md
-
 
 lib/tester.*
 /dist
