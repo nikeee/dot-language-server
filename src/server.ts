@@ -21,13 +21,10 @@ export function runServer(connection: lsp.Connection) {
 	// Make the documents listen for changes on the connection
 	documents.listen(connection);
 
-	let shouldSendDiagnosticRelatedInformation = false;
-
 	// After the server has started the client sends an initialize request. The server receives
 	// in the passed params the rootPath of the workspace plus the client capabilities.
 	connection.onInitialize((_params): lsp.InitializeResult => {
-		const a = _params.capabilities?.textDocument?.publishDiagnostics?.relatedInformation;
-		shouldSendDiagnosticRelatedInformation = !!a;
+		// const a = _params.capabilities?.textDocument?.publishDiagnostics?.relatedInformation;
 
 		return {
 			capabilities: {
