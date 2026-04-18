@@ -37,7 +37,7 @@
     "prepublishOnly": "node --run clean && node --run build"
   },
   "dependencies": {
-    "dot-language-support": "^4.1.4",
+    "dot-language-support": "^4.3.0",
     "vscode-languageserver": "^9.0.1",
     "vscode-languageserver-textdocument": "^1.0.12"
   },
@@ -46,9 +46,9 @@
     "bun": "^1.3.12",
     "oxfmt": "^0.45.0",
     "oxlint": "^1.60.0",
-    "oxlint-tsgolint": "^0.20.0",
+    "oxlint-tsgolint": "^0.21.1",
     "rimraf": "^6.1.3",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": ">=22"
