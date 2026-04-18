@@ -36,6 +36,8 @@ export function runServer(connection: lsp.Connection) {
 				hoverProvider: true,
 				referencesProvider: true,
 				definitionProvider: true,
+				declarationProvider: true,
+				selectionRangeProvider: true,
 				renameProvider: true,
 				codeActionProvider: true,
 				executeCommandProvider: {
@@ -90,6 +92,24 @@ export function runServer(connection: lsp.Connection) {
 		const ast = ensureAst(uri, doc);
 		return doc && ast
 			? languageService.findDefinition(doc, ast, req.position)
+			: invalidRequest();
+	});
+
+	connection.onDeclaration(req => {
+		const uri = req.textDocument.uri;
+		const doc = documents.get(uri);
+		const ast = ensureAst(uri, doc);
+		return doc && ast
+			? languageService.findDeclaration(doc, ast, req.position)
+			: invalidRequest();
+	});
+
+	connection.onSelectionRanges(req => {
+		const uri = req.textDocument.uri;
+		const doc = documents.get(uri);
+		const ast = ensureAst(uri, doc);
+		return doc && ast
+			? languageService.getSelectionRanges(doc, ast, req.positions)
 			: invalidRequest();
 	});
 
