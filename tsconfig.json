@@ -7,6 +7,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
 
+    "types": ["node"],
+
     "noUnusedLocals": false, // TODO: Fix
     "noImplicitReturns": true,
     "noUnusedParameters": true,
