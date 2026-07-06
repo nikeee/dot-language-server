@@ -117,7 +117,7 @@ export function runServer(connection: lsp.Connection) {
 		const uri = req.textDocument.uri;
 		const doc = documents.get(uri);
 		const ast = ensureAst(uri, doc);
-		return doc && ast ? languageService.getDocumentColors(doc, ast) : invalidRequest();
+		return doc && ast ? (languageService.getDocumentColors(doc, ast) ?? invalidRequest()) : invalidRequest();
 	});
 
 	connection.onColorPresentation(req => {
@@ -125,7 +125,7 @@ export function runServer(connection: lsp.Connection) {
 		const doc = documents.get(uri);
 		const ast = ensureAst(uri, doc);
 		return doc && ast
-			? languageService.getColorRepresentations(doc, ast, req.color, req.range)
+			? (languageService.getColorRepresentations(doc, ast, req.color, req.range) ?? invalidRequest())
 			: invalidRequest();
 	});
 
