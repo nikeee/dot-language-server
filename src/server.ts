@@ -44,6 +44,7 @@ export function runServer(connection: lsp.Connection) {
 					commands: languageService.getAvailableCommands(),
 				},
 				colorProvider: true,
+				foldingRangeProvider: true,
 				// documentFormattingProvider: true,
 			},
 		};
@@ -111,6 +112,13 @@ export function runServer(connection: lsp.Connection) {
 		return doc && ast
 			? languageService.getSelectionRanges(doc, ast, req.positions)
 			: invalidRequest();
+	});
+
+	connection.onFoldingRanges(req => {
+		const uri = req.textDocument.uri;
+		const doc = documents.get(uri);
+		const ast = ensureAst(uri, doc);
+		return doc && ast ? languageService.getFoldingRanges(doc, ast) : invalidRequest();
 	});
 
 	connection.onDocumentColor(req => {
